@@ -1,0 +1,451 @@
+
+//                                                           location stuff
+// Make new coordinate Coordinate point = new Coordinate(x, y);
+// x:  point.x()
+// y:  point.y()
+
+
+
+//                                                           player stuff
+// player.name / player.location -> Strings
+// player.strength / player.speed / player.health / player.smarts -> ints
+// player.inventory -> ArrayList<String>
+// read a stat:      System.out.println(player.health);
+// change a stat:    player.health -= 5;   player.strength += 2;
+// change location:  player.location = "Popcorn Village";
+// add to inv:       player.inventory.add("sword");
+// remove from inv:  player.inventory.remove("armor");
+// check inv:        player.inventory.contains("armor");
+// inv as string:    String.join(", ", player.inventory);
+// only works if "player" is in scope (inside main, or a method with Player player as a param)
+
+
+
+import java.util.*;
+import java.util.*;
+
+public class Game {
+	static class Player {
+	    String name, location;
+	    int strength, speed, health, smarts;
+	    ArrayList<String> inventory = new ArrayList<>();
+	}
+	public record Coordinate(int x, int y) {} //creates coordinate thing
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		Random rand = new Random();
+		 int tick = 0;
+		 tick = 0;
+		    while (tick != 100) {
+		    	System.out.println();
+		    	tick ++;
+		    }
+		    tick = 0;
+		System.out.println("========={ Welcome to Console RPG }=========");
+		System.out.println("               press 1 to play              ");
+		System.out.println("            press 2 for settings            ");
+		System.out.println("               press 3 to quit              ");
+		int mMenuChoice = in.nextInt();
+		in.nextLine(); // clears newline from the input thing
+		tick = 0;
+	    while (tick != 100) {
+	    	System.out.println();
+	    	tick ++;
+	    }
+	    tick = 0;
+		switch (mMenuChoice) {
+			case 1:
+		System.out.println("--------------------------------------------");
+			System.out.print("Please enter your characters name: ");
+			String pName = in.nextLine();
+			Player player = new Player();
+			player.name = pName;
+			player.location = "Red Sand Desert"; //initial declaration of playerLoc
+
+		System.out.println("Hello "+pName);
+		System.out.println("--------------------------------------------");
+		System.out.print("You will now create your characters stats. (press enter to continue)");
+		in.nextLine(); 
+		tick = 0;
+	    while (tick != 100) {
+	    	System.out.println();
+	    	tick ++;
+	    }
+	    tick = 0;
+		System.out.println();
+		System.out.println("You have 20 points to spend on 4 different categories.");
+		int statPoints = 20; 
+		System.out.println();
+		System.out.println("Category 1: Strength");
+		System.out.println("Category 2: Speed");
+		System.out.println("Category 3: Health");
+		System.out.println("Category 4: Smarts");
+			int statChange = 0;
+		System.out.println("(continue)");
+		in.nextLine();
+				while (statPoints > 0) {
+					System.out.println("Please enter the number of the category you want to add points to ");
+					System.out.println("You have "+statPoints+" points remaining.");
+							int statMenuChoice = in.nextInt();
+							switch (statMenuChoice) {
+							case 1:
+					System.out.println("How many points would you like to put into Strength? ");
+								statChange = Math.abs(in.nextInt());
+								player.strength += statChange;
+								statPoints -= statChange;
+								statChange = 0;
+					System.out.println("Strength now has: "+player.strength+" points.");
+					System.out.println();
+							break;
+							case 2:
+					System.out.println("How many points would you like to put into Speed? ");
+								statChange = Math.abs(in.nextInt());
+								player.speed += statChange;
+								statPoints -= statChange;
+								statChange = 0;
+					System.out.println("Speed now has: "+player.speed+" points.");
+					System.out.println();
+							break;
+							case 3:
+					System.out.println("How many points would you like to put into Health? ");
+								statChange = Math.abs(in.nextInt());
+								player.health += statChange;
+								statPoints -= statChange;
+								statChange = 0;
+					System.out.println("Health now has: "+player.health+" points.");
+					System.out.println();
+							break;
+							case 4:
+					System.out.println("How many points would you like to put into Smarts? ");
+								statChange = Math.abs(in.nextInt());
+								player.smarts += statChange;
+								statPoints -= statChange;
+								statChange = 0;
+					System.out.println("Smarts now has: "+player.smarts+" points.");
+					System.out.println();
+							break;
+							}
+					
+				} // end of while for statpoints
+				System.out.println("You have spent all of your points");
+					System.out.println("Strength: "+player.strength+" points.");
+					System.out.println("Speed: "+player.speed+" points.");
+					System.out.println("Health: "+player.health+" points.");
+					System.out.println("Smarts: "+player.smarts+" points.");
+		System.out.println("(continue)");
+		in.nextLine();
+		in.nextLine();
+		tick = 0;
+	    while (tick != 100) {
+	    	System.out.println();
+	    	tick ++;
+	    }
+	    tick = 0;
+
+			int intro = (rand.nextInt(3))+1;
+				if (intro == 1) {
+					System.out.println("            You open your eyes to a view of the blazing sun. Last night you \n"
+							+ " took shelter in a cave in the Red Sand Desert, spires of perfectly balanced\n"
+							+ " rock soar into the sky and arches frame the blazing sun. Even under the shelter\n"
+							+ " of the cave you are drenched in sweat and parched. Your skin is peeling from where \n"
+							+ "the sun could reach you through your armor, and small sand crabs are scuttling\n"
+							+ " out of your bag as you sit up. You came from a city in the east where you were raised\n"
+							+ " as a knight for the royal family, and you set out on your adventure in search of a \n"
+							+ "suitable bride for the prince. After brushing the sand off of your chestplate and standing \n"
+							+ "up you take out your map.\n"
+							+ "(armor has been added to inventory) (you lose 1 health)");
+					System.out.println("(continue)");
+					in.nextLine();
+					tick = 0;
+				    
+					player.location = "Red Sand Desert";
+					player.inventory.add("armor");
+					player.health -= 1;
+				} else {}
+				if (intro == 2){
+					
+					
+				} else {}
+				if (intro == 3) {
+					
+					
+				} else {}
+				tick = 0;
+			    while (tick != 100) {
+			    	System.out.println();
+			    	tick ++;
+			    }
+			    tick = 0;
+				System.out.println("_______________________________________________________________________________________\n"
+								+ "|                                                                                       |\n"
+								+ "|                                                            Great Blue River End (2)   |\n"
+								+ "|                     Red Sand Desert (1)                                    *          |\n"
+								+ "|                                 *                                                     |\n"
+								+ "|                                                                                       |\n"
+								+ "|                                                                                       |\n"
+								+ "|                                                                                       |\n"
+								+ "|                                                                                       |\n"
+								+ "|              *                                                                        |\n"
+								+ "|          Trader Caravan (3)                                                           |\n"
+								+ "|                                                                                       |\n"
+								+ "|                                                                                       |\n"
+								+ "|                                                                                       |\n"
+								+ "|                                                             East City Royal Palace (4)|\n"
+								+ "|                                                                          *            |\n"
+								+ "|                                                                                       |\n"
+								+ "|                                                                                       |\n"
+								+ "|                                                                                       |\n"
+								+ "|                            Death Mauntain Mining (5)                                  |\n"
+								+ "|                                          *                                            |\n"
+								+ "|                                                                                       |\n"
+								+ "|                                                                                       |\n"
+								+ "|                                                                                       |\n"
+								+ "|                                                                                       |\n"
+								+ "|                                                            Popcorn Village (7)        |\n"
+								+ "| Great Blue River Start (6)                                    *                       |\n"
+								+ "|   *                                                                                   |\n"
+								+ "|                                                                                       |\n"
+								+ "|                                      *                                                |\n"
+								+ "|                      Frozen Glacier Forest (8)                                        |\n"
+								+ "|                                                                                       |\n"
+								+ "|                                                                                       |\n"
+								+ "|_______________________________________________________________________________________|");
+				System.out.println("(continue)");
+				in.nextLine();
+				tick = 0;
+			    while (tick != 100) {
+			    	System.out.println();
+			    	tick ++;
+			    }
+			    tick = 0;
+				HashMap<String, Coordinate> locations = new HashMap<>();
+
+				locations.put("Red Sand Desert", new Coordinate(30, 90));
+				locations.put("Great Blue River End", new Coordinate(90, 95));
+				locations.put("Trader Caravan", new Coordinate(15, 80));
+				locations.put("East City Royal Palace", new Coordinate(90, 65));
+				locations.put("Death Mountain Mining", new Coordinate(50, 50));
+				locations.put("Great Blue River Start", new Coordinate(5, 20));
+				locations.put("Popcorn Village", new Coordinate(75, 25));
+				locations.put("Frozen Glacier Forest", new Coordinate(40, 15));
+				
+				while (player.health > 0) {
+				System.out.println();
+				System.out.println("Press 1 for travel");
+				System.out.println("Press 2 for inventory");
+				System.out.println("Press 3 for stats");
+				System.out.println("Press 4 for map");
+				int gameLoopChoice = in.nextInt();
+				in.nextLine();
+				tick = 0;
+			    while (tick != 100) {
+			    	System.out.println();
+			    	tick ++;
+			    }
+			    tick = 0;
+				if (gameLoopChoice == 1) { //GLC for travel menu
+					System.out.println("You are at "+player.location);
+					System.out.println("Where do you want to go?");
+					System.out.println();
+					System.out.println("Red Sand Desert");
+				    System.out.println("Great Blue River End");
+				    System.out.println("Trader Caravan");
+				    System.out.println("East City Royal Palace");
+				    System.out.println("Death Mountain Mining");
+				    System.out.println("Great Blue River Start");
+				    System.out.println("Popcorn Village");
+				    System.out.println("Frozen Glacier Forest");
+				    System.out.println("(Please type where you want to go, case sensitive. Type your current location to cancel travel.");
+				    String locationName = in.nextLine();
+				    System.out.print("You are traveling to " + locationName);
+					System.out.println(" From "+ player.location);
+				   
+				    Coordinate playerPoint = locations.get(player.location);
+				    Coordinate destPoint = locations.get(locationName);
+				    System.out.println("Dev. Trav "+playerPoint.x()+", "+playerPoint.y());
+				    System.out.println("Dev. To "+destPoint.x()+", "+destPoint.y());
+				    int distanceTrav = (int) Math.sqrt(Math.abs(  Math.pow((destPoint.x()-playerPoint.x()), 2)  +  Math.pow((destPoint.y()-playerPoint.y()), 2)  ));
+				   
+				    System.out.println("Distance: "+distanceTrav+"miles");
+				    System.out.println("Travel time: "+distanceTrav/10+" sec");
+				    System.out.println("Travelling...");
+				   
+				    
+				 
+				    try {
+				        Thread.sleep(distanceTrav*100);
+				    } catch (InterruptedException e) {
+				        e.printStackTrace();
+				    }
+				    
+				    
+				    
+				    tick = 0;
+				    while (tick != 100) {
+				    	System.out.println();
+				    	tick ++;
+				    }
+				    tick = 0;
+				  
+				    
+				    
+				    System.out.println("You have arrived!");
+				    System.out.println("You travelled for "+distanceTrav/player.speed+" days");
+					 player.location = locationName;
+					 System.out.println("You are now at: "+player.location);
+					System.out.println("(Continue)");
+					 in.nextLine();
+					 tick = 0;
+					    while (tick != 100) {
+					    	System.out.println();
+					    	tick ++;
+					    }
+					    tick = 0;
+					    triggerLocationEvent(player, in);
+				} else {}
+				
+				if (gameLoopChoice == 2) { //GLC for inventory
+					String invAsString = String.join(", ", player.inventory);
+					System.out.println(invAsString);
+						System.out.println("(continue)");
+						in.nextLine();
+						tick = 0;
+					    while (tick != 100) {
+					    	System.out.println();
+					    	tick ++;
+					    }
+					    tick = 0;
+				} else {}
+				
+				if (gameLoopChoice == 3) { //GLC for stats
+					System.out.println("Strength: "+player.strength+" points.");
+					System.out.println("Speed: "+player.speed+" points.");
+					System.out.println("Health: "+player.health+" points.");
+					System.out.println("Smarts: "+player.smarts+" points.");
+						System.out.println("(continue)");
+							in.nextLine();
+							tick = 0;
+						    while (tick != 100) {
+						    	System.out.println();
+						    	tick ++;
+						    }
+						    tick = 0;
+				} else {}
+				
+				if (gameLoopChoice == 4) { //GLC for map
+					System.out.println("_______________________________________________________________________________________\n"
+							+ "|                                                                                       |\n"
+							+ "|                                                            Great Blue River End (2)   |\n"
+							+ "|                     Red Sand Desert (1)                                    *          |\n"
+							+ "|                                 *                                                     |\n"
+							+ "|                                                                                       |\n"
+							+ "|                                                                                       |\n"
+							+ "|                                                                                       |\n"
+							+ "|                                                                                       |\n"
+							+ "|              *                                                                        |\n"
+							+ "|          Trader Caravan (3)                                                           |\n"
+							+ "|                                                                                       |\n"
+							+ "|                                                                                       |\n"
+							+ "|                                                                                       |\n"
+							+ "|                                                             East City Royal Palace (4)|\n"
+							+ "|                                                                          *            |\n"
+							+ "|                                                                                       |\n"
+							+ "|                                                                                       |\n"
+							+ "|                                                                                       |\n"
+							+ "|                            Death Mauntain Mining (5)                                  |\n"
+							+ "|                                          *                                            |\n"
+							+ "|                                                                                       |\n"
+							+ "|                                                                                       |\n"
+							+ "|                                                                                       |\n"
+							+ "|                                                                                       |\n"
+							+ "|                                                            Popcorn Village (7)        |\n"
+							+ "| Great Blue River Start (6)                                    *                       |\n"
+							+ "|   *                                                                                   |\n"
+							+ "|                                                                                       |\n"
+							+ "|                                      *                                                |\n"
+							+ "|                      Frozen Glacier Forest (8)                                        |\n"
+							+ "|                                                                                       |\n"
+							+ "|                                                                                       |\n"
+							+ "|_______________________________________________________________________________________|");
+			System.out.println("(continue)");
+			in.nextLine();
+			tick = 0;
+		    while (tick != 100) {
+		    	System.out.println();
+		    	tick ++;
+		    }
+		    tick = 0;
+				} else {}
+				
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+		} // health while for game loop
+			break; // breaks case 1 of mMenu
+			
+			case 2:
+				
+			break; // breaks case 2 of mMenu
+			
+			case 3:
+				System.out.println("Thanks for playing!");
+			break; // breaks case 3 of mMenu
+		} // closes switch
+		
+	}
+	static void triggerLocationEvent(Player player, Scanner in) {
+	    switch (player.location) {
+	    case "Trader Caravan" -> traderCaravanEvent(player, in);
+        case "Frozen Glacier Forest" -> glacierForestEvent(player, in);
+        case "Death Mountain Mining" -> deathMountainEvent(player, in);
+        case "Red Sand Desert" -> redSandDesertEvent(player, in);
+        case "Great Blue River End" -> greatBlueRiverEndEvent(player, in);
+        case "Great Blue River Start" -> greatBlueRiverStartEvent(player, in);
+        case "East City Royal Palace" -> eastCityRoyalPalaceEvent(player, in);
+        case "Popcorn Village" -> popcornVillageEvent(player, in);
+        
+	      
+	    }
+	}
+
+	static void traderCaravanEvent(Player player, Scanner in) {
+	    // trader stuff (trading and ambush and proitect and reward and allat)
+	}
+	static void glacierForestEvent(Player player, Scanner in) {
+		// forest stuff (wild with animals and village and stuff)
+	}
+	static void deathMountainEvent(Player player, Scanner in) {
+		// mountain stuff (mining and top of mauntain has something)
+	}
+	static void redSandDesertEvent(Player player, Scanner in) {
+		// desert stuff (like a sandstorm where you random find shelter and damage also like thirst and hunger something)
+	}
+	static void greatBlueRiverEndEvent(Player player, Scanner in) {
+		// river end stuff (add like exploring a forest or sum)
+	}
+	static void greatBlueRiverStartEvent(Player player, Scanner in) {
+		// river start stuff (able to ride to end of river with half food cost and half time)
+	}
+	static void eastCityRoyalPalaceEvent(Player player, Scanner in) {
+		// east palace stuff (idk anything royal maybe a quest or sum)
+	}
+	static void popcornVillageEvent(Player player, Scanner in) {
+		// pop village stuff (make like crime city typa shi)
+	}
+	
+	
+	
+	}
+
+// TODO make all random events
+// TODO make a random encounter storage system where theres a string list and it adds the encounter name to it if it happens and if statement in randomizer so it skips if hte string has it in it
