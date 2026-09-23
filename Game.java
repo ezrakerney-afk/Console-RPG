@@ -29,6 +29,8 @@ public class Game {
 	    String name, location;
 	    int strength, speed, health, smarts;
 	    ArrayList<String> inventory = new ArrayList<>();
+	    ArrayList<String> locationLog = new ArrayList<>(); //add locations log
+	    
 	}
 	public record Coordinate(int x, int y) {} //creates coordinate thing
 	public static void main(String[] args) {
@@ -218,7 +220,7 @@ public class Game {
 			    	tick ++;
 			    }
 			    tick = 0;
-				HashMap<String, Coordinate> locations = new HashMap<>();
+				HashMap<String, Coordinate> locations = new HashMap<>(); //add locations log
 
 				locations.put("Red Sand Desert", new Coordinate(30, 90));
 				locations.put("Great Blue River End", new Coordinate(90, 95));
@@ -255,53 +257,64 @@ public class Game {
 				    System.out.println("Great Blue River Start");
 				    System.out.println("Popcorn Village");
 				    System.out.println("Frozen Glacier Forest");
-				    System.out.println("(Please type where you want to go, case sensitive. Type your current location to cancel travel.");
+				    System.out.println("(Please type where you want to go, case sensitive. Type exit to cancel travel.");
 				    String locationName = in.nextLine();
-				    System.out.print("You are traveling to " + locationName);
-					System.out.println(" From "+ player.location);
+				    
+				    
+				    if (locationName.equals("exit")) {} else  {
+				    	System.out.print("You are traveling to " + locationName);
+				    
+				    	System.out.println(" From "+ player.location);
 				   
-				    Coordinate playerPoint = locations.get(player.location);
-				    Coordinate destPoint = locations.get(locationName);
-				    System.out.println("Dev. Trav "+playerPoint.x()+", "+playerPoint.y());
-				    System.out.println("Dev. To "+destPoint.x()+", "+destPoint.y());
-				    int distanceTrav = (int) Math.sqrt(Math.abs(  Math.pow((destPoint.x()-playerPoint.x()), 2)  +  Math.pow((destPoint.y()-playerPoint.y()), 2)  ));
+				    	Coordinate playerPoint = locations.get(player.location);
+				    	Coordinate destPoint = locations.get(locationName);
+				    	System.out.println("Dev. Trav "+playerPoint.x()+", "+playerPoint.y());
+				    	System.out.println("Dev. To "+destPoint.x()+", "+destPoint.y());
+				    	int distanceTrav = (int) Math.sqrt(Math.abs(  Math.pow((destPoint.x()-playerPoint.x()), 2)  +  Math.pow((destPoint.y()-playerPoint.y()), 2)  ));
 				   
-				    System.out.println("Distance: "+distanceTrav+"miles");
-				    System.out.println("Travel time: "+distanceTrav/10+" sec");
-				    System.out.println("Travelling...");
+				    	System.out.println("Distance: "+distanceTrav+"miles");
+				    	System.out.println("Travel time: "+distanceTrav/10+" sec");
+				    	System.out.println("Travelling...");
 				   
 				    
 				 
-				    try {
+				    	try {
 				        Thread.sleep(distanceTrav*100);
-				    } catch (InterruptedException e) {
+				    	} catch (InterruptedException e) {
 				        e.printStackTrace();
-				    }
+				    	}
 				    
 				    
 				    
-				    tick = 0;
-				    while (tick != 100) {
+				    	tick = 0;
+				    	while (tick != 100) {
 				    	System.out.println();
 				    	tick ++;
-				    }
-				    tick = 0;
+				    	}
+				    	tick = 0;
 				  
 				    
 				    
-				    System.out.println("You have arrived!");
-				    System.out.println("You travelled for "+distanceTrav/player.speed+" days");
-					 player.location = locationName;
-					 System.out.println("You are now at: "+player.location);
-					System.out.println("(Continue)");
-					 in.nextLine();
-					 tick = 0;
-					    while (tick != 100) {
+				    	System.out.println("You have arrived!");
+				    	System.out.println("You travelled for "+distanceTrav/player.speed+" days");
+				    	player.location = locationName;
+				    	System.out.println("You are now at: "+player.location);
+				    	System.out.println("(Continue)");
+				    	in.nextLine();
+				    	tick = 0;
+				    	while (tick != 100) {
 					    	System.out.println();
 					    	tick ++;
 					    }
 					    tick = 0;
-					    triggerLocationEvent(player, in);
+					    triggerLocationEvent(player, in, rand);
+				    }
+					    
+					    
+					    
+					    
+					    
+					    
 				} else {}
 				
 				if (gameLoopChoice == 2) { //GLC for inventory
@@ -403,43 +416,100 @@ public class Game {
 		} // closes switch
 		
 	}
-	static void triggerLocationEvent(Player player, Scanner in) {
+	
+	static void triggerLocationEvent(Player player, Scanner in, Random rand) {
 	    switch (player.location) {
-	    case "Trader Caravan" -> traderCaravanEvent(player, in);
-        case "Frozen Glacier Forest" -> glacierForestEvent(player, in);
-        case "Death Mountain Mining" -> deathMountainEvent(player, in);
-        case "Red Sand Desert" -> redSandDesertEvent(player, in);
-        case "Great Blue River End" -> greatBlueRiverEndEvent(player, in);
-        case "Great Blue River Start" -> greatBlueRiverStartEvent(player, in);
-        case "East City Royal Palace" -> eastCityRoyalPalaceEvent(player, in);
-        case "Popcorn Village" -> popcornVillageEvent(player, in);
+	    case "Trader Caravan" -> traderCaravanEvent(player, in, rand);
+        case "Frozen Glacier Forest" -> glacierForestEvent(player, in, rand);
+        case "Death Mountain Mining" -> deathMountainEvent(player, in, rand);
+        case "Red Sand Desert" -> redSandDesertEvent(player, in, rand);
+        case "Great Blue River End" -> greatBlueRiverEndEvent(player, in, rand);
+        case "Great Blue River Start" -> greatBlueRiverStartEvent(player, in, rand);
+        case "East City Royal Palace" -> eastCityRoyalPalaceEvent(player, in, rand);
+        case "Popcorn Village" -> popcornVillageEvent(player, in, rand);
         
 	      
 	    }
 	}
 
-	static void traderCaravanEvent(Player player, Scanner in) {
+	
+	static void traderCaravanEvent(Player player, Scanner in, Random rand) {
 	    // trader stuff (trading and ambush and proitect and reward and allat)
+		System.out.println("You walk up to the trader camp after a long journey.");
+		System.out.println("(continue)");
+		in.nextLine();
+		int tick = 0;
+	    while (tick != 100) {
+	    	System.out.println();
+	    	tick ++;
+	    }
+	    tick = 0;
+	    System.out.println("A nomad greets you; \" welcome to our camp\" \n"
+	    		+ "\"We travel across the land to trade goods. What would you like to trade? \"");
+	    System.out.println("(type what you would like to trade) \n"
+	    		+ "Your inventory: ");
+	    String invAsString = String.join(", ", player.inventory);
+		System.out.println(invAsString);
+			String pTrade = in.nextLine();
+				
+			
+			int category = rand.nextInt(1)+1;
+				if (category == 1) {
+					String[] stringArray = {"Sword", "Armor", "Bow", "Shield"};
+	        
+				
+					int randomIndex = rand.nextInt(stringArray.length);
+	        
+					String randomString = stringArray[randomIndex];
+					System.out.println("Trader Offer: " + randomString);
+				} else {}
+				if (category == 2) {
+					String[] stringArray = {"Loaf of Bread", "Cooked Meat", "Cooked Chicken", "Shrimp", "Lobster", "Swordfish", "Shark", "Red Berry Pie", "Meat Pie", "Apple Pie", "Baked Potato", "Potato with Cheese", "Stew", "Curry", "Cabbage", "Onion", "Chocolate Cake", "Jug of Wine", "Pot of Cream", "Bowl of Soup"};
+			        
+					
+					int randomIndex = rand.nextInt(stringArray.length);
+		        
+					String randomString = stringArray[randomIndex];
+					System.out.println("Trader Offer: " + randomString);
+				}
+				
+		int cEvent = rand.nextInt(5);
+			if (cEvent == 1 && player.locationLog.contains("cEvent1") == false) {
+				
+				
+				player.locationLog.add("cEvent1");
+			} else {}
+			if (cEvent == 2 && player.locationLog.contains("cEvent2") == false) {
+				
+				
+				player.locationLog.add("cEvent2");
+			} else {}
+			
+			
+			
+			
+			
+		
 	}
-	static void glacierForestEvent(Player player, Scanner in) {
+	static void glacierForestEvent(Player player, Scanner in, Random rand) {
 		// forest stuff (wild with animals and village and stuff)
 	}
-	static void deathMountainEvent(Player player, Scanner in) {
+	static void deathMountainEvent(Player player, Scanner in, Random rand) {
 		// mountain stuff (mining and top of mauntain has something)
 	}
-	static void redSandDesertEvent(Player player, Scanner in) {
+	static void redSandDesertEvent(Player player, Scanner in, Random rand) {
 		// desert stuff (like a sandstorm where you random find shelter and damage also like thirst and hunger something)
 	}
-	static void greatBlueRiverEndEvent(Player player, Scanner in) {
+	static void greatBlueRiverEndEvent(Player player, Scanner in, Random rand) {
 		// river end stuff (add like exploring a forest or sum)
 	}
-	static void greatBlueRiverStartEvent(Player player, Scanner in) {
+	static void greatBlueRiverStartEvent(Player player, Scanner in, Random rand) {
 		// river start stuff (able to ride to end of river with half food cost and half time)
 	}
-	static void eastCityRoyalPalaceEvent(Player player, Scanner in) {
+	static void eastCityRoyalPalaceEvent(Player player, Scanner in, Random rand) {
 		// east palace stuff (idk anything royal maybe a quest or sum)
 	}
-	static void popcornVillageEvent(Player player, Scanner in) {
+	static void popcornVillageEvent(Player player, Scanner in, Random rand) {
 		// pop village stuff (make like crime city typa shi)
 	}
 	
