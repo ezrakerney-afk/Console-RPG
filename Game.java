@@ -155,21 +155,21 @@ public class Game {
 							+ " as a knight for the royal family, and you set out on your adventure in search of a \n"
 							+ "suitable bride for the prince. After brushing the sand off of your chestplate and standing \n"
 							+ "up you take out your map.\n"
-							+ "(armor has been added to inventory) (you lose 1 health)");
+							+ "(Armor has been added to inventory) (you lose 1 health)");
 					System.out.println("(continue)");
 					in.nextLine();
 					tick = 0;
 				    
 					player.location = "Red Sand Desert";
-					player.inventory.add("armor");
+					player.inventory.add("Armor");
 					player.health -= 1;
 				} else {}
 				if (intro == 2){
-					
+					player.inventory.add("Armor");
 					
 				} else {}
 				if (intro == 3) {
-					
+					player.inventory.add("Armor");
 					
 				} else {}
 				tick = 0;
@@ -268,11 +268,11 @@ public class Game {
 				   
 				    	Coordinate playerPoint = locations.get(player.location);
 				    	Coordinate destPoint = locations.get(locationName);
-				    	System.out.println("Dev. Trav "+playerPoint.x()+", "+playerPoint.y());
-				    	System.out.println("Dev. To "+destPoint.x()+", "+destPoint.y());
+				    	//System.out.println("Dev. Trav "+playerPoint.x()+", "+playerPoint.y());
+				    	//System.out.println("Dev. To "+destPoint.x()+", "+destPoint.y());
 				    	int distanceTrav = (int) Math.sqrt(Math.abs(  Math.pow((destPoint.x()-playerPoint.x()), 2)  +  Math.pow((destPoint.y()-playerPoint.y()), 2)  ));
 				   
-				    	System.out.println("Distance: "+distanceTrav+"miles");
+				    	System.out.println("Distance: "+distanceTrav+" miles");
 				    	System.out.println("Travel time: "+distanceTrav/10+" sec");
 				    	System.out.println("Travelling...");
 				   
@@ -309,11 +309,6 @@ public class Game {
 					    tick = 0;
 					    triggerLocationEvent(player, in, rand);
 				    }
-					    
-					    
-					    
-					    
-					    
 					    
 				} else {}
 				
@@ -390,19 +385,6 @@ public class Game {
 		    tick = 0;
 				} else {}
 				
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
 		} // health while for game loop
 			break; // breaks case 1 of mMenu
 			
@@ -446,22 +428,25 @@ public class Game {
 	    tick = 0;
 	    System.out.println("A nomad greets you; \" welcome to our camp\" \n"
 	    		+ "\"We travel across the land to trade goods. What would you like to trade? \"");
-	    System.out.println("(type what you would like to trade) \n"
+	   boolean doTradeLoop = true;
+	    while (doTradeLoop == true) {
+	   System.out.println("(type what you would like to trade) \n"
 	    		+ "Your inventory: ");
 	    String invAsString = String.join(", ", player.inventory);
 		System.out.println(invAsString);
 			String pTrade = in.nextLine();
 				
 			
-			int category = rand.nextInt(1)+1;
+			int category = rand.nextInt(2)+1;
+				String traderOffer = "";
 				if (category == 1) {
 					String[] stringArray = {"Sword", "Armor", "Bow", "Shield"};
 	        
 				
 					int randomIndex = rand.nextInt(stringArray.length);
 	        
-					String randomString = stringArray[randomIndex];
-					System.out.println("Trader Offer: " + randomString);
+					traderOffer = stringArray[randomIndex];
+					System.out.println("Trader Offer: " + traderOffer);
 				} else {}
 				if (category == 2) {
 					String[] stringArray = {"Loaf of Bread", "Cooked Meat", "Cooked Chicken", "Shrimp", "Lobster", "Swordfish", "Shark", "Red Berry Pie", "Meat Pie", "Apple Pie", "Baked Potato", "Potato with Cheese", "Stew", "Curry", "Cabbage", "Onion", "Chocolate Cake", "Jug of Wine", "Pot of Cream", "Bowl of Soup"};
@@ -469,23 +454,160 @@ public class Game {
 					
 					int randomIndex = rand.nextInt(stringArray.length);
 		        
-					String randomString = stringArray[randomIndex];
-					System.out.println("Trader Offer: " + randomString);
+					traderOffer = stringArray[randomIndex];
+					System.out.println("Trader Offer: " + traderOffer);
+				} else {
+					traderOffer = "";
 				}
+				System.out.println("Accept? (y) decline? (n)");
+					String traderOffAns = in.nextLine();
+						if (traderOffAns.equals("y")) {
+							player.inventory.remove(pTrade);
+							
+							player.inventory.add(traderOffer); //not working? wont add to list
+							
+						} else {}
+						if (traderOffAns.equals("n")) {
+							System.out.println("Trade cancelled. ");
+							System.out.println("(continue)");
+							tick = 0;
+						    while (tick != 100) {
+						    	System.out.println();
+						    	tick ++;
+						    }
+						    tick = 0;
+							
+							
+						} else {}
+						System.out.print("Do you want to trade again? (y) (n)");
+						String doTradeLoopString = in.nextLine();
+						if (doTradeLoopString.equals("y")) {
+							doTradeLoop = true;
+						} else {}
+						if (doTradeLoopString.equals("n")) { doTradeLoop = false;
+						} else {}
+						tick = 0;
+					    while (tick != 100) {
+					    	System.out.println();
+					    	tick ++;
+					    }
+					    tick = 0;
+	    }
 				
-		int cEvent = rand.nextInt(5);
+		//int cEvent = rand.nextInt(5)+1;
+	    int cEvent = 1; // forces event one TODO change this latercback
 			if (cEvent == 1 && player.locationLog.contains("cEvent1") == false) {
+				System.out.println("As you and the nomad finish exchanging items a group of thugs suddenly jump from the bushes \n "
+						+ "and brandish their swords. \"give us all your goods or well slaughter you!\n they shout. \n"
+						+ "Would you like to (g) give them one of your items or (f) fight back?");
+				String ambushDec = in.next();
 				
+				if (ambushDec.equals("g") && player.inventory.isEmpty() == false) {
+					System.out.println("(type what you would like to give) \n"
+				    		+ "Your inventory: ");
+				    String invAsString = String.join(", ", player.inventory);
+					System.out.println(invAsString);
+						String pTrade = in.nextLine();
+						player.inventory.remove(pTrade);
+					
+				}else {}
+				if (ambushDec.equals("f") || player.inventory.isEmpty() == true) {
+					System.out.println("You have entered combat with the boss thug. ");
+					// combat loop
+					int enemyHp = 2;
+					int enemySmarts = 3;
+					int punchDMG = 0;
+					int swordDMG = 0;
+					int bowDMG = 0;
+					
+					boolean playerCTurn = true;
+					while (player.health > 0 && enemyHp > 0) {
+						
+						if (playerCTurn == true) {
+							int atkChance = 0;
+							System.out.println("You have: "+player.health+" health");
+							System.out.println("The enemy has: "+enemyHp+" health");
+							
+							System.out.println("Your attacks are: ");
+							 punchDMG = player.strength/10;
+							System.out.println("(p) punch DMG: "+punchDMG);
+							if (player.inventory.contains("Sword") == true) {
+								 swordDMG = player.strength/2;
+								System.out.println("(s) sword DMG: "+swordDMG);
+							}
+							if (player.inventory.contains("Bow") == true) {
+								 bowDMG = player.strength/3;
+								System.out.println("(b) Bow DMG: "+bowDMG);
+							}
+							System.out.println("What attack would you like to use? ");
+							String atkP = in.next();
+							
+							atkChance = rand.nextInt(player.smarts);
+							boolean pHitLand = (atkChance == 0 || atkChance > enemySmarts);
+						if (pHitLand == true) {
+							if (atkP.equals("p")) {
+							enemyHp -= punchDMG;
+							System.out.println("Your attack did "+punchDMG+" damage.");
+								} else {}
+						
+							if (atkP.equals("s")) {
+							enemyHp -= swordDMG;
+							System.out.println("Your attack did "+swordDMG+" damage.");
+								} else {}
+							
+							if (atkP.equals("s")) {
+								enemyHp -= bowDMG;
+								System.out.println("Your attack did "+bowDMG+" damage.");
+									} else {}
+							
+						} else { System.out.println("Your attack missed.");}
+							playerCTurn = false;
+						} else {}
+						if (playerCTurn == false) {
+							
+							
+							
+							
+							
+							
+							
+							playerCTurn = true;
+						} else {}
+						
+						
+						
+						
+						
+						
+					
+						
+						
+						
+						
+					}
+				}else {}
 				
 				player.locationLog.add("cEvent1");
-			} else {}
+			} else {cEvent = rand.nextInt(4)+2; }
 			if (cEvent == 2 && player.locationLog.contains("cEvent2") == false) {
 				
 				
 				player.locationLog.add("cEvent2");
+			} else {cEvent = rand.nextInt(3)+3;}
+			if (cEvent == 3 && player.locationLog.contains("cEvent3") == false) {
+				
+				
+				player.locationLog.add("cEvent3");
+			} else {cEvent = rand.nextInt(2)+4;}
+			if (cEvent == 4 && player.locationLog.contains("cEvent4") == false) {
+				
+				
+				player.locationLog.add("cEvent3");
+			} else {cEvent = 5;}
+			if (cEvent != 1 || cEvent != 2 || cEvent != 3 || cEvent != 4) {
+				
+				
 			} else {}
-			
-			
 			
 			
 			
